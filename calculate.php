@@ -1,7 +1,13 @@
 <?php
 
+require __DIR__.'/vendor/autoload.php';
+
 use TestCase\Calculator;
+use TestCase\Command;
+use TestCase\XmlListRenderer;
 
-require(__DIR__."/src/Calculator.php");
+$calculator = new Calculator;
 
-echo (new Calculator())->calcPrimeNumbers([4, 8, 15, 16, 23, 42]);
+$listRenderer = new XmlListRenderer();
+
+(new Command($calculator, $listRenderer))->run();

@@ -38,27 +38,16 @@ class Calculator
 
     public function calcPrimeNumbers(array $numbers)
     {
-        $primes = array_filter($numbers, function ($number) {
-            return $this->isPrime($number);
-        });
-
-        $xmlOutput = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-        $xmlOutput .= "<primeNumbers amount=\"".count($primes)."\">\n";
-        $xmlOutput .= "\t<result>\n";
-
-        foreach ($primes as $prime) {
-            $xmlOutput .= "\t\t<number>$prime</number>\n";
-        }
-
-        $xmlOutput .= "\t</result>\n";
-        $xmlOutput .= "</primeNumbers>\n";
-
-        return $xmlOutput;
+        return array_values(
+            array_filter($numbers, function ($number) {
+                return $this->isPrime($number);
+            })
+        );
     }
 
     private function isPrime(int $number): bool
     {
-        if ($number === 0 || $number === 1) {
+        if ($number < 2) {
             return false;
         }
 
@@ -66,7 +55,8 @@ class Calculator
             return true;
         }
 
-        for ($i = 2; $i < sqrt($number); $i++) {
+        $sqrt = sqrt($number);
+        for ($i = 2; $i <= $sqrt; $i++) {
             if ($number % $i === 0) {
                 return false;
             }

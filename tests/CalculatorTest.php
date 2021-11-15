@@ -73,8 +73,14 @@ class CalculatorTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function it_can_calculate_prime_numbers()
     {
-        $result = (new Calculator())->calcPrimeNumbers([4, 8, 15, 16, 23, 42]);
+        $calculator = new Calculator;
 
-        $this->assertStringContainsString("<number>23</number>", $result);
+        $this->assertEquals([2, 3, 5], $calculator->calcPrimeNumbers([0, 1, 2, 3, 4, 5, 6]));
+
+        $this->assertEquals([23], $calculator->calcPrimeNumbers([4, 8, 15, 16, 23, 42]));
+
+        $this->assertEquals([4597, 7057, 1399], $calculator->calcPrimeNumbers([4597, 1664, 7057, 854, 1399]));
+
+        $this->assertEquals([], $calculator->calcPrimeNumbers([-1, -12, -4, -8]));
     }
 }
