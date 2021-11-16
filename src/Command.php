@@ -4,34 +4,8 @@ namespace TestCase;
 
 class Command
 {
-    private const options = [
-        1 => [
-            'method' => 'calcDivisors',
-            'input' => [
-                'question' => 'Provide a number:',
-                'type' => self::INT_INPUT,
-            ]
-        ],
-        2 => [
-            'method' => 'calcFactorial',
-            'input' => [
-                'question' => 'Provide a number:',
-                'type' => self::INT_INPUT,
-            ]
-        ],
-        3 => [
-            'method' => 'calcPrimeNumbers',
-            'input' => [
-                'question' => 'Please provide a list of numbers (comma separated):',
-                'type' => self::ARRAY_INPUT,
-            ]
-        ],
-    ];
-    private const INT_INPUT = 1;
-    private const ARRAY_INPUT = 2;
     private $calculator;
     private ListRenderer $listRenderer;
-    private int $option;
 
     public function __construct($calculator, ListRenderer $listRenderer)
     {
@@ -43,36 +17,44 @@ class Command
     {
         do {
             $option = readline("Choose an option: \n." .
-                "1: divisors, 2: factorial, 3: primes\n");
-        } while (! array_key_exists((int)$option, self::options));
+                "1: divisors, 2: factorial, 3: prime numbers\n");
+        } while (! in_array((int) $option, [1, 2, 3]));
 
-        $this->option = (int) $option;
+        if ($option === '1') {
+            $input = $this->getIntegerInput('Provide a number:');
 
-        $input = $this->getInput(
-            $this->getOptionInputConfig()['question'],
-            $this->getOptionInputConfig()['type']
-        );
+            try {
+                $result = $this->runCalculation('calcDivisors', $input);
 
-        try {
-            $result = $this->runCalculation($this->getOptionMethod(), $input);
-
-            echo "\n".$this->listRenderer->render($this->getOptionTitle(), $result);
-        } catch (\Exception $exception) {
-            return $exception->getMessage();
-        }
-    }
-
-    private function getInput($question, $type)
-    {
-        if ($type === self::INT_INPUT) {
-            return $this->getIntegerInput($question);
+                echo "\n".$this->listRenderer->render('divisors', $result);
+            } catch (\Exception $exception) {
+                return $exception->getMessage();
+            }
         }
 
-        if ($type === self::ARRAY_INPUT) {
-            return $this->getArrayInput($question);
+        if ($option === '2') {
+            $input = $this->getIntegerInput('Provide a number:');
+
+            try {
+                $result = $this->runCalculation('calcFactorial', $input);
+
+                echo "\n".$this->listRenderer->render('factorial', [$result]);
+            } catch (\Exception $exception) {
+                return $exception->getMessage();
+            }
         }
 
-        return false;
+        if ($option === '3') {
+            $input = $this->getArrayInput('Please provide a list of numbers (comma separated):');
+
+            try {
+                $result = $this->runCalculation('calcPrimeNumbers', $input);
+
+                echo "\n".$this->listRenderer->render('primeNumbers', $result);
+            } catch (\Exception $exception) {
+                return $exception->getMessage();
+            }
+        }
     }
 
     private function getIntegerInput($question)
@@ -101,25 +83,6 @@ class Command
         } while ($valid === false);
 
         return $input;
-    }
-
-    private function getOptionInputConfig()
-    {
-        return self::options[$this->option]['input'];
-    }
-
-    private function getOptionMethod()
-    {
-        return self::options[$this->option]['method'];
-    }
-
-    private function getOptionTitle()
-    {
-        $method = $this->getOptionMethod();
-
-        $title = str_replace('calc', '', $method);
-
-        return strtolower($title[0]) . substr($title, 1);
     }
 
     private function runCalculation($method, $input)

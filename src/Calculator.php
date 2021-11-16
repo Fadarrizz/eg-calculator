@@ -36,7 +36,7 @@ class Calculator
         return $number * $this->calcFactorial($number - 1);
     }
 
-    public function calcPrimeNumbers(array $numbers)
+    public function calcPrimeNumbers(array $numbers): array
     {
         return array_values(
             array_filter($numbers, function ($number) {

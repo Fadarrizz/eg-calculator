@@ -6,17 +6,15 @@ use XMLWriter;
 
 class XmlListRenderer implements ListRenderer
 {
+    private XMLWriter $writer;
+
     public function __construct()
     {
         $this->writer = new XMLWriter();
     }
 
-    public function render($title, $list)
+    public function render(string $title, array $list)
     {
-        if (! is_array($list)) {
-            $list = [$list];
-        }
-
         $this->writer->openMemory();
         $this->writer->setIndent(true);
         $this->writer->startDocument();
