@@ -1,10 +1,10 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
+use Fadarrizz\EgCalculator\Calculator;
+use Fadarrizz\EgCalculator\Command;
+use Fadarrizz\EgCalculator\XmlListRenderer;
 
-use TestCase\Calculator;
-use TestCase\Command;
-use TestCase\XmlListRenderer;
+require_once "vendor/autoload.php";
 
 $calculator = new Calculator;
 

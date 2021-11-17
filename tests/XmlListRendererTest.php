@@ -1,10 +1,8 @@
 <?php
 
-declare(strict_types=1);
+namespace Fadarrizz\EgCalculator\Tests;
 
-namespace TestCase\Tests;
-
-use TestCase\XmlListRenderer;
+use Fadarrizz\EgCalculator\XmlListRenderer;
 
 class XmlListRendererTest extends \PHPUnit\Framework\TestCase
 {

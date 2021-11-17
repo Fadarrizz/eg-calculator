@@ -1,10 +1,8 @@
 <?php
 
-declare(strict_types=1);
+namespace Fadarrizz\EgCalculator\Tests;
 
-namespace TestCase\Tests;
-
-use TestCase\Calculator;
+use Fadarrizz\EgCalculator\Calculator;
 
 class CalculatorTest extends \PHPUnit\Framework\TestCase
 {

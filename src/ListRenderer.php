@@ -1,6 +1,6 @@
 <?php
 
-namespace TestCase;
+namespace Fadarrizz\EgCalculator;
 
 interface ListRenderer
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace TestCase;
+namespace Fadarrizz\EgCalculator;
 
 class Command
 {
@@ -16,7 +16,7 @@ class Command
     public function run()
     {
         do {
-            $option = readline("Choose an option: \n." .
+            $option = readline("Choose an option: \n" .
                 "1: divisors, 2: factorial, 3: prime numbers\n");
         } while (! in_array((int) $option, [1, 2, 3]));
 
@@ -28,7 +28,7 @@ class Command
 
                 echo "\n".$this->listRenderer->render('divisors', $result);
             } catch (\Exception $exception) {
-                return $exception->getMessage();
+                echo $exception->getMessage();
             }
         }
 
@@ -40,7 +40,7 @@ class Command
 
                 echo "\n".$this->listRenderer->render('factorial', [$result]);
             } catch (\Exception $exception) {
-                return $exception->getMessage();
+                echo $exception->getMessage();
             }
         }
 
@@ -52,7 +52,7 @@ class Command
 
                 echo "\n".$this->listRenderer->render('primeNumbers', $result);
             } catch (\Exception $exception) {
-                return $exception->getMessage();
+                echo $exception->getMessage();
             }
         }
     }
