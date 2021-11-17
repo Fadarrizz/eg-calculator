@@ -12,9 +12,7 @@ jobs:
             -   uses: php-actions/composer@v5
 
             -   name: PHPUnit Tests
-                uses: php-actions/phpunit@v2
-                env:
-                    TEST_NAME: Scarlett
+                uses: php-actions/phpunit@v3
                 with:
                     bootstrap: vendor/autoload.php
                     configuration: test/phpunit.xml
